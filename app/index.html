@@ -1,0 +1,480 @@
+<title>The Read</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#EFECE8; --surface:#F8F6F3; --surface-2:#E5E0D9; --sunk:#E9E5E0;
+  --ink:#1C1714; --ink-2:#6E655D; --ink-3:#938981;
+  --line:#D8D1C9; --line-2:#C6BDB3;
+  --accent:#4E0F1A; --on-accent:#F7EFEC; --accent-soft:#8C2F3D; --accent-wash:#EBDDDC;
+  --good:#2E6B4E; --warn:#8E5A14; --bad:#8C2F3D;
+  --display:'Bricolage Grotesque',ui-sans-serif,system-ui,sans-serif;
+  --body:'Instrument Sans',ui-sans-serif,system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141110; --surface:#1D1917; --surface-2:#2B2421; --sunk:#191514;
+  --ink:#EEE7E1; --ink-2:#9E948C; --ink-3:#786E67;
+  --line:#322A26; --line-2:#443A35;
+  --accent:#7A1B2A; --on-accent:#F9ECE9; --accent-soft:#D9788A; --accent-wash:#2C1A1C;
+  --good:#6FBF95; --warn:#D3A24C; --bad:#D9788A;
+}}
+:root[data-theme="dark"]{
+  --bg:#141110; --surface:#1D1917; --surface-2:#2B2421; --sunk:#191514;
+  --ink:#EEE7E1; --ink-2:#9E948C; --ink-3:#786E67;
+  --line:#322A26; --line-2:#443A35;
+  --accent:#7A1B2A; --on-accent:#F9ECE9; --accent-soft:#D9788A; --accent-wash:#2C1A1C;
+  --good:#6FBF95; --warn:#D3A24C; --bad:#D9788A;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
+  margin:0;padding-inline:16px;padding-block:0;-webkit-font-smoothing:antialiased}
+.wrap{max-width:620px;margin:0 auto;padding-block:20px 56px}
+
+/* header */
+header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding-bottom:14px;border-bottom:1.5px solid var(--ink);margin-bottom:22px}
+h1{font-family:var(--display);font-size:clamp(30px,8vw,40px);font-weight:800;letter-spacing:-.025em;
+  margin:0;line-height:.95;text-wrap:balance}
+.tag{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.11em;
+  color:var(--ink-2)}
+
+/* generic blocks */
+.block{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:14px}
+label.f{display:block;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--ink-2);margin-bottom:7px}
+textarea,input[type=text]{width:100%;font-family:var(--body);font-size:15px;color:var(--ink);
+  background:var(--sunk);border:1px solid var(--line);border-radius:8px;padding:11px 12px;resize:vertical}
+textarea{min-height:132px;line-height:1.55}
+textarea:focus,input[type=text]:focus{outline:2px solid var(--accent-soft);outline-offset:1px;border-color:transparent}
+
+/* drop zone */
+.drop{display:flex;align-items:center;gap:12px;background:var(--sunk);border:1.5px dashed var(--line-2);
+  border-radius:8px;padding:12px;cursor:pointer;transition:border-color .15s,background .15s}
+.drop:hover,.drop.over{border-color:var(--accent-soft);background:var(--accent-wash)}
+.drop-txt{font-size:13.5px;color:var(--ink-2);line-height:1.35}
+.drop-txt b{color:var(--ink);font-weight:600;display:block;font-size:14px}
+.thumb{width:44px;height:58px;object-fit:cover;border-radius:5px;border:1px solid var(--line-2);flex:none}
+.shotico{width:44px;height:58px;border-radius:5px;border:1.5px solid var(--line-2);flex:none;
+  display:grid;place-items:center;font-size:19px;color:var(--ink-3)}
+
+/* buttons */
+.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:13px}
+button{font-family:var(--body);font-size:14.5px;font-weight:600;border-radius:8px;cursor:pointer;
+  border:1px solid transparent;padding:11px 17px;transition:opacity .15s,background .15s}
+button:focus-visible{outline:2px solid var(--accent-soft);outline-offset:2px}
+.primary{background:var(--accent);color:var(--on-accent)}
+.primary:hover{opacity:.88}
+.ghost{background:transparent;color:var(--ink-2);border-color:var(--line-2)}
+.ghost:hover{color:var(--ink);border-color:var(--ink-3)}
+button:disabled{opacity:.45;cursor:default}
+
+/* status */
+.status{font-family:var(--mono);font-size:12px;color:var(--ink-2);margin-top:12px;display:flex;
+  align-items:center;gap:8px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent-soft);animation:p 1.15s ease-in-out infinite}
+@keyframes p{0%,100%{opacity:.25}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.dot{animation:none;opacity:.8}}
+.err{color:var(--bad);font-size:13.5px;margin-top:12px;line-height:1.45}
+
+/* results */
+#out[hidden]{display:none!important}
+.sec-h{display:flex;align-items:center;gap:10px;margin:26px 0 11px}
+.sec-h h2{font-family:var(--display);font-size:13px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.09em;margin:0;color:var(--ink-2);white-space:nowrap}
+.sec-h .rule{height:1px;background:var(--line);flex:1}
+
+.exbadge{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--warn);border:1px solid currentColor;border-radius:4px;
+  padding:2px 6px;vertical-align:2px}
+
+/* read facts */
+.facts{display:grid;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.fact{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line);align-items:start}
+.fact:last-child{border-bottom:none}
+.fact dt{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-3);padding-top:2px}
+.fact dd{margin:0;font-size:14px}
+@media(max-width:440px){.fact{grid-template-columns:1fr;gap:3px}}
+
+/* score */
+.score{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:15px}
+.bars{display:grid;gap:9px;margin-bottom:12px}
+.bar{display:grid;grid-template-columns:38px 1fr 26px;gap:10px;align-items:center}
+.bar .who{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2)}
+.bar .track{height:12px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.bar .fill{height:100%;border-radius:3px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.bar .fill.her{background:var(--accent)}
+.bar .fill.him{background:var(--ink-3)}
+.bar .n{font-family:var(--mono);font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+.verdict{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-.01em;
+  padding-top:12px;border-top:1px solid var(--line);text-wrap:balance}
+
+/* chips */
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.chip{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;
+  padding:4px 9px;border-radius:5px;background:var(--surface-2);color:var(--ink-2);white-space:nowrap}
+.chip b{color:var(--ink);font-weight:600}
+.chip.hot{background:var(--accent);color:var(--on-accent)}
+.chip.hot b{color:var(--on-accent)}
+
+/* the call */
+.call{border-left:3px solid var(--accent-soft);background:var(--accent-wash);border-radius:0 8px 8px 0;
+  padding:13px 15px;font-size:15px;line-height:1.5}
+
+/* options as bubbles */
+.opt{margin-bottom:20px}
+.opt-h{display:flex;align-items:baseline;gap:9px;margin-bottom:7px;flex-wrap:wrap}
+.opt-lbl{font-family:var(--mono);font-size:10.5px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--accent-soft)}
+.opt-does{font-size:13px;color:var(--ink-2);line-height:1.35}
+.bubble-row{display:flex;justify-content:flex-end}
+.bubble{background:var(--accent);color:var(--on-accent);border-radius:19px 19px 5px 19px;
+  padding:12px 17px;font-size:16px;line-height:1.42;max-width:88%;position:relative;
+  white-space:pre-wrap;word-break:break-word}
+.opt-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:7px}
+.risk{font-size:12.5px;color:var(--ink-3);line-height:1.35;flex:1}
+.copy{background:transparent;border:1px solid var(--line-2);color:var(--ink-2);font-family:var(--mono);
+  font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;padding:6px 11px;border-radius:6px;flex:none}
+.copy:hover{color:var(--ink);border-color:var(--ink-3)}
+.copy.done{color:var(--good);border-color:var(--good)}
+
+.next{font-size:14.5px;line-height:1.5}
+.next b{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--ink-2);display:block;margin-bottom:4px;font-weight:600}
+.venue{margin-top:12px}
+
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;
+  color:var(--ink-3);line-height:1.5}
+.fallback{background:var(--surface);border:1px solid var(--line-2);border-radius:var(--r);padding:16px;
+  font-size:14px;line-height:1.55;color:var(--ink-2)}
+.fallback b{color:var(--ink)}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>The&nbsp;Read</h1>
+    <div class="tag">Sydney · conversation desk</div>
+  </header>
+
+  <div id="unavailable" class="fallback" hidden>
+    <b>Claude isn't reachable from this page right now.</b><br>
+    Open it inside Claude, or use the <code>/rizz</code> skill in the repo instead — same brain, no page needed.
+  </div>
+
+  <div id="app">
+    <div class="block">
+      <label class="f" for="shot">1 · The conversation</label>
+      <div class="drop" id="drop" role="button" tabindex="0" aria-label="Add a screenshot">
+        <div class="shotico" id="shotico" aria-hidden="true">＋</div>
+        <div class="drop-txt"><b id="droptitle">Drop or paste a screenshot</b>
+          <span id="dropsub">Cmd/Ctrl-V works too. Or just type it out below.</span></div>
+      </div>
+      <input type="file" id="shot" accept="image/*" hidden>
+
+      <div style="margin-top:12px">
+        <label class="f" for="txt">…or paste the messages</label>
+        <textarea id="txt" placeholder="Her: waiting for you boss&#10;Me: ..."></textarea>
+      </div>
+
+      <div style="margin-top:12px">
+        <label class="f" for="ctxin">2 · Anything I should know <span style="text-transform:none;letter-spacing:0">(optional)</span></label>
+        <input type="text" id="ctxin" placeholder="her suburb, how you matched, what she does">
+      </div>
+
+      <div class="row">
+        <button class="primary" id="go">Read it</button>
+        <button class="ghost" id="again" hidden>Another angle</button>
+        <button class="ghost" id="stop" hidden>Stop</button>
+      </div>
+      <div class="status" id="status" hidden><span class="dot"></span><span id="statustxt">Thinking…</span></div>
+      <div class="err" id="err" hidden></div>
+    </div>
+
+    <div id="out">
+      <div class="sec-h"><h2>The read</h2><div class="rule"></div><span class="exbadge" id="exb">Example</span></div>
+      <dl class="facts" id="facts"></dl>
+
+      <div class="sec-h"><h2>Investment</h2><div class="rule"></div></div>
+      <div class="score">
+        <div class="bars">
+          <div class="bar"><span class="who">Her</span><div class="track"><div class="fill her" id="fher"></div></div><span class="n" id="nher">0</span></div>
+          <div class="bar"><span class="who">Him</span><div class="track"><div class="fill him" id="fhim"></div></div><span class="n" id="nhim">0</span></div>
+        </div>
+        <div class="verdict" id="verdict"></div>
+        <div class="chips" id="chips"></div>
+      </div>
+
+      <div class="sec-h"><h2>The call</h2><div class="rule"></div></div>
+      <div class="call" id="call"></div>
+
+      <div class="sec-h"><h2>Send one of these</h2><div class="rule"></div></div>
+      <div id="opts"></div>
+
+      <div class="block next" id="nextb"></div>
+    </div>
+  </div>
+
+  <footer>
+    Drafts are starting points — you know her, this doesn't. Read them aloud flat before you send:
+    if it needs a performance to work, it isn't your voice.
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var BRAIN = [
+"You are the operator's wingman. He is a man dating in Sydney, Australia, running conversations on dating apps. You read a conversation and hand him messages he can send without editing. You are not a coach writing suggestions — you write AS HIM.",
+"",
+"== HIS VOICE (the most important part) ==",
+"Benchmark line he actually sent, cold, after liking a girl's photo: \"What's my wife doing on here\". She replied \"waiting for you boss\". Everything below is derived from that line.",
+"- STATEMENTS, not questions. A frame she has to play along with beats a question she can close in one word.",
+"- Short: 6-15 words. Never longer than her last two messages combined.",
+"- No full stop at the end. No exclamation marks. No ellipsis. Question marks usually dropped (\"what are you doing thursday\").",
+"- Lowercase or sentence case. Apostrophes often dropped: youll, im, whats, dont.",
+"- No emoji. The humour is dry; emoji beg for a laugh and kill it.",
+"- Mode: flat, confident, mock-serious. States an absurd premise like a mild administrative complaint and lets her react.",
+"- Frames he runs: the claim (pretends a relationship already exists — 'typical wife behaviour'); the mild complaint (treats something good about her as an imposition); the role reversal (she's the one auditioning — 'youre doing fine so far'); the flat callback (one word from 20 messages ago, no setup); deadpan logistics ('thursday, im picking the bar').",
+"- Tease, never compliment. He is never impressed out loud.",
+"NEVER WRITE: 'hey' / 'hey you' / 'hey stranger'; 'how's your day'; 'what are you up to'; any appearance compliment before a date is locked; 'haha' as filler; apologies for slow replies; explaining a joke; asking permission ('would you maybe want to'); 'we should hang out sometime'; paragraphs; anything self-deprecating or eager; PUA constructions (negs, push-pull, canned routines) — they read as memorised, which is the opposite of why his real line works.",
+"TEST every draft: could this have been sent by a guy with three other conversations going who isn't especially invested in this one? If it reads as needing her reply, rewrite it.",
+"",
+"== INVESTMENT SCORING (the engine) ==",
+"Score the last ~6 exchanges. HER +1 each: message longer than his previous; asks him a question; initiates or double-texts; replies fast for HER baseline; references something from earlier; volunteers info he didn't ask for; plays along with a frame he started.",
+"HER -1 each: one-word or pure-reaction reply with nothing added; no question back two exchanges running; latency growing; never initiates; deflects logistics ('we'll see', 'maybe', 'so busy'); dry-answers an easy opening.",
+"Score HIM the same way. Then:",
+"- Her >= his: she's in, momentum peaks NOW. ASK HER OUT. More banter is downside risk, not upside.",
+"- Even: one strong exchange, then ask.",
+"- Her < his: he's chasing. Cut his investment to match hers. One re-engagement, then park it.",
+"- Her much less, 3+ messages: it's done. Say so plainly. Don't generate clever recoveries for a dead thread.",
+"",
+"== STAGES ==",
+"S0 matched no reply / S1 opened, alive / S2 banter (WHERE IT DIES) / S3 date asked / S4 locked, pre-date / S5 post-date / SX stalled, cold.",
+"Ask inside ~10 messages. Past that, conversion drops and he becomes a texting buddy. If he's at message 12 with no day named, THAT is the finding — lead with it.",
+"",
+"== TRACKS ==",
+"He does not know in advance whether he wants short or long term — it depends on the girl. So read HER and recommend:",
+"FAST — responsive, light banter, easy logistics. Ask by message ~6. Cheap venue, 60-90 min, weeknight.",
+"BUILD — writes real messages, asks real questions, remembers details. Two or three more real exchanges, then a date with thought in it.",
+"PARK — under-investing, dodging logistics, one-word replies. Mirror down, one revive, move on.",
+"",
+"== THE DATE ASK ==",
+"Activity + place + day + time, STATED not asked. 'drinks thursday, theres a place in surry hills youll like'.",
+"A soft yes with no day is NOT a yes — pin it with a two-option close: 'thursday or saturday' and nothing else.",
+"Confirm the morning of as a statement: '7 at [place], see you there'. NEVER 'are we still on?' — that invites a cancellation.",
+"If the score says ask now, at least two of the three drafts must contain an actual day, and at least one must name a venue.",
+"",
+"== SYDNEY VENUES (first date = drinks, one venue, 60-90 min, walkable to a second) ==",
+"Surry Hills / Darlinghurst: Love Tilly Devine (laneway, natural wine, best list for the money); Bar Copains (tight wine list, share plates); Lokal (small-batch natural wine); Crown St generally (plan B is 50m away).",
+"Potts Point / Kings Cross: Dear Sainte Eloise (a touch dressier); Paradise (orange wine, people-watching); Piccolo Bar (tiny, red-lit, martinis); Caravin Deux (laneway, natural wine + seafood).",
+"Newtown / Enmore: Famelia (cosy, sommelier-owned); King St for cheap second options. Don't drag an inner-west girl to Potts Point.",
+"Daytime: Bondi to Bronte (~45min); Bondi to Coogee (6km, 1.5-2hr, ends at a beachside pub); Royal Botanic Garden to Mrs Macquarie's Point (free, central, ~1hr); Glebe Markets Saturday then Glebe Point Rd.",
+"Rules: drinks not dinner (dinner traps you for two hours across an interview table). Never a movie. 6:30-7pm weeknight — built-in exit. Pick near HER; travel time is the commonest silent cause of a flake. Never 'wherever you want' — deciding is the attractive part. Keep it under about $70.",
+"",
+"== OUTPUT ==",
+"Reply with ONLY a JSON object, no prose around it:",
+'{"stage":"S2","stage_note":"5 words","who_last":"her|him","gap":"how long since","threads":"unresolved things he can grab, or empty string","logistics":"what is known about her suburb/schedule/days, or empty string","her_score":3,"him_score":2,"verdict":"one short sentence on who is ahead","track":"FAST|BUILD|PARK","track_reason":"the ONE signal that decided it, under 12 words","call":"1-2 sentences: what he should do right now and why. Be blunt. If she is not interested, say so.","options":[{"label":"SAFE","does":"what it does, under 8 words","message":"the actual text, in his voice","risk":"what happens if it lands badly, under 12 words"},{"label":"LEAN","does":"...","message":"...","risk":"..."},{"label":"SEND IT","does":"...","message":"...","risk":"..."}],"next":"what he is trying to make happen in the next two messages","venue":"a specific venue + day + time if a date is due, else empty string"}',
+"The three options must be genuinely different angles — never three flavours of the same line. Scores are small integers 0-8. If the screenshot is unreadable, say so in 'call' rather than inventing a conversation."
+  ].join("\n");
+
+  var EXAMPLE = {
+    stage:"S2", stage_note:"banter, one exchange deep", who_last:"her", gap:"~13 hours",
+    threads:"the wife bit — she escalated it herself with \"boss\"",
+    logistics:"nothing named yet",
+    her_score:3, him_score:2,
+    verdict:"She's ahead — she picked the frame up and ran with it.",
+    track:"FAST", track_reason:"matching register, not depth",
+    call:"Ask her out now. The bit has peaked and it doesn't get funnier on a second pass — another round of banter here is pure downside.",
+    options:[
+      {label:"SAFE",does:"takes the frame, adds a day",message:"typical wife behaviour. what are you doing thursday",risk:"none really — worst case she names a different day"},
+      {label:"LEAN",does:"accepts her escalation, closes in the same breath",message:"good. keep it that way. drinks thursday, surry hills",risk:"slightly fast if she's a slow burn"},
+      {label:"SEND IT",does:"plays it all the way out, stays a statement",message:"took you long enough. thursday, im picking the bar",risk:"reads cocky if her humour is drier than it looks"}
+    ],
+    next:"She names Thursday or counters → send venue and time in the same message, don't wait. She goes vague → \"thursday or saturday\" and nothing else.",
+    venue:"Love Tilly Devine, Darlinghurst — Thursday 7pm. Crown St is fifty metres away if it's going well."
+  };
+
+  var $ = function(id){ return document.getElementById(id); };
+  var sampleFn = null, canImages = false, file = null, ctl = null, showing = "example";
+
+  /* ---------- rendering ---------- */
+  function esc(s){ var d=document.createElement("div"); d.textContent=s==null?"":String(s); return d.innerHTML; }
+
+  function render(r, isExample){
+    $("exb").hidden = !isExample;
+
+    var rows = [
+      ["Stage", (r.stage||"") + (r.stage_note ? " — " + r.stage_note : "")],
+      ["Last word", (r.who_last==="her"?"Hers":r.who_last==="him"?"His":"—") + (r.gap ? " · " + r.gap : "")],
+      ["Live threads", r.threads || "nothing hanging"],
+      ["Logistics", r.logistics || "nothing named yet"]
+    ];
+    $("facts").innerHTML = rows.map(function(x){
+      return '<div class="fact"><dt>'+esc(x[0])+'</dt><dd>'+esc(x[1])+'</dd></div>';
+    }).join("");
+
+    var her = Math.max(0, Number(r.her_score)||0), him = Math.max(0, Number(r.him_score)||0);
+    var max = Math.max(her, him, 4);
+    $("fher").style.width = (her/max*100)+"%";
+    $("fhim").style.width = (him/max*100)+"%";
+    $("nher").textContent = her;
+    $("nhim").textContent = him;
+    $("verdict").textContent = r.verdict || "";
+
+    var track = (r.track||"").toUpperCase();
+    var chips = '<span class="chip'+(track==="FAST"||track==="BUILD"?" hot":"")+'">Track <b>'+esc(track||"—")+'</b></span>';
+    if (r.track_reason) chips += '<span class="chip">'+esc(r.track_reason)+'</span>';
+    $("chips").innerHTML = chips;
+
+    $("call").textContent = r.call || "";
+
+    var opts = Array.isArray(r.options) ? r.options : [];
+    $("opts").innerHTML = opts.map(function(o,i){
+      return '<div class="opt">'
+        + '<div class="opt-h"><span class="opt-lbl">'+esc(o.label||("Option "+(i+1)))+'</span>'
+        + '<span class="opt-does">'+esc(o.does||"")+'</span></div>'
+        + '<div class="bubble-row"><div class="bubble" id="msg'+i+'">'+esc(o.message||"")+'</div></div>'
+        + '<div class="opt-foot"><span class="risk">'+esc(o.risk||"")+'</span>'
+        + '<button class="copy" data-i="'+i+'">Copy</button></div></div>';
+    }).join("");
+
+    var nb = '<div class="next"><b>Next</b>'+esc(r.next||"")+'</div>';
+    if (r.venue) nb += '<div class="next venue"><b>Venue</b>'+esc(r.venue)+'</div>';
+    $("nextb").innerHTML = nb;
+  }
+
+  $("opts").addEventListener("click", function(e){
+    var b = e.target.closest(".copy"); if(!b) return;
+    var el = $("msg"+b.dataset.i); if(!el) return;
+    var done = function(){ b.textContent="Copied"; b.classList.add("done");
+      setTimeout(function(){ b.textContent="Copy"; b.classList.remove("done"); }, 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(el.textContent).then(done, function(){ b.textContent="Select it"; });
+    } else {
+      var sel = window.getSelection(), rg = document.createRange();
+      rg.selectNodeContents(el); sel.removeAllRanges(); sel.addRange(rg); done();
+    }
+  });
+
+  /* ---------- image input ---------- */
+  function setFile(f){
+    file = f || null;
+    var ico = $("shotico");
+    if (!file) { ico.outerHTML = '<div class="shotico" id="shotico" aria-hidden="true">＋</div>';
+      $("droptitle").textContent = "Drop or paste a screenshot";
+      $("dropsub").textContent = "Cmd/Ctrl-V works too. Or just type it out below."; return; }
+    var url = URL.createObjectURL(file);
+    ico.outerHTML = '<img class="thumb" id="shotico" alt="" src="'+url+'">';
+    $("droptitle").textContent = "Screenshot attached";
+    $("dropsub").textContent = "Tap to swap it out.";
+  }
+  $("drop").addEventListener("click", function(){ if(canImages) $("shot").click(); });
+  $("drop").addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); if(canImages) $("shot").click(); }});
+  $("shot").addEventListener("change", function(e){ if(e.target.files && e.target.files[0]) setFile(e.target.files[0]); });
+  ["dragenter","dragover"].forEach(function(t){ $("drop").addEventListener(t, function(e){ e.preventDefault(); $("drop").classList.add("over"); }); });
+  ["dragleave","drop"].forEach(function(t){ $("drop").addEventListener(t, function(e){ e.preventDefault(); $("drop").classList.remove("over"); }); });
+  $("drop").addEventListener("drop", function(e){
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f && canImages && /^image\//.test(f.type)) setFile(f);
+  });
+  document.addEventListener("paste", function(e){
+    if (!canImages || !e.clipboardData) return;
+    var items = e.clipboardData.items || [];
+    for (var i=0;i<items.length;i++){
+      if (items[i].type && items[i].type.indexOf("image")===0){
+        var f = items[i].getAsFile(); if (f){ setFile(f); e.preventDefault(); return; }
+      }
+    }
+  });
+
+  /* ---------- the call ---------- */
+  function busy(on, msg){
+    $("go").disabled = on; $("again").disabled = on;
+    $("status").hidden = !on; $("stop").hidden = !on;
+    if (msg) $("statustxt").textContent = msg;
+  }
+  function fail(code){
+    var m = {
+      not_granted:"You declined Claude access for this page. Reload and allow it to use the desk.",
+      sampling_disabled:"Claude isn't available on this account.",
+      rate_limited:"Too many reads too fast. Give it a minute.",
+      session_expired:"Sign in to Claude again, then retry.",
+      image_rejected:"That image didn't work — try a different screenshot, or paste the text instead.",
+      images_unavailable:"Screenshots aren't supported in this view. Paste the messages as text.",
+      invalid_json:"The reply came back malformed. Hit it again.",
+      refused:"Claude declined that input. Try pasting the messages as text instead.",
+      empty_completion:"Nothing came back. Try again with a bit more of the conversation.",
+      prompt_too_large:"That's too much conversation at once — paste the last dozen messages.",
+      cancelled:""
+    };
+    return m[code] || "Something broke on the way to Claude. Try again.";
+  }
+
+  function build(){
+    var txt = $("txt").value.trim();
+    var ctx = $("ctxin").value.trim();
+    var p = BRAIN + "\n\n== THIS CONVERSATION ==\n";
+    if (file) p += "A screenshot of the conversation is attached. Read it: his messages are the ones on the right, hers on the left.\n";
+    if (txt) p += (file ? "He also typed it out:\n" : "") + txt.slice(0, 8000) + "\n";
+    if (ctx) p += "\nContext he added: " + ctx.slice(0, 600) + "\n";
+    if (!file && !txt) p += "(He gave nothing. Say so in 'call' and ask for a screenshot or the messages.)\n";
+    return p;
+  }
+
+  function run(){
+    if (!sampleFn) return;
+    var txt = $("txt").value.trim();
+    if (!file && !txt) { $("err").hidden=false; $("err").textContent="Add a screenshot or paste the messages first."; return; }
+    $("err").hidden = true;
+    ctl = new AbortController();
+    busy(true, "Reading the conversation…");
+
+    var started = false;
+    sampleFn.json(build(), {
+      images: file ? [file] : undefined,
+      modelTier: "complex",
+      cache: false,
+      signal: ctl.signal,
+      onText: function(){ if(!started){ started=true; $("statustxt").textContent = "Writing your replies…"; } }
+    }).then(function(r){
+      busy(false);
+      showing = "live";
+      render(r, false);
+      $("again").hidden = false;
+      $("out").scrollIntoView({behavior:"smooth", block:"start"});
+    }).catch(function(e){
+      busy(false);
+      var msg = fail(e && e.code);
+      if (msg){ $("err").hidden=false; $("err").textContent = msg; }
+    });
+  }
+
+  $("go").addEventListener("click", run);
+  $("again").addEventListener("click", run);
+  $("stop").addEventListener("click", function(){ if(ctl) ctl.abort(); });
+
+  /* ---------- boot ---------- */
+  render(EXAMPLE, true);
+  $("txt").value = "Me: What's my wife doing on here\nHer (next day): waiting for you boss";
+
+  (async function(){
+    var s = null;
+    try { s = window.claude && window.claude.use ? await window.claude.use("sample") : null; } catch(_){}
+    if (!s) { $("app").hidden = true; $("unavailable").hidden = false; return; }
+    sampleFn = s;
+    try {
+      var lim = await s.limits();
+      canImages = !!(lim && lim.images);
+      if (canImages && lim.images.mediaTypes) $("shot").accept = lim.images.mediaTypes.join(",");
+    } catch(_){ canImages = false; }
+    if (!canImages) {
+      $("drop").hidden = true;
+      $("txt").placeholder = "Paste the messages here. Mark who said what.\n\nHer: waiting for you boss\nMe: ...";
+    }
+  })();
+})();
+</script>
