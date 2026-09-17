@@ -38,6 +38,43 @@ actually his fault.
 
 ---
 
+## When she's not in Sydney
+
+Central Coast, Wollongong, Blue Mountains, the far Northern Beaches — all of
+these are 60–90 minutes each way, and Sydney's geography makes that a real
+obstacle rather than a detail. Travel time is the most common silent cause of
+a flake, and a three-hour round trip for a 90-minute drink is a big first ask.
+
+**Ask about the trip before you plan the date.** The unknown that matters is
+not whether she likes him, it's whether she'll travel — and no amount of
+banter answers it. Every message spent before that is spent on a maybe. So
+surface it early, as a statement with a question attached:
+
+> `long way to come for a drink. when are you next in the city`
+
+**Piggyback on a trip she's already making.** People from the Coast come down
+for work, friends and events constantly. A date attached to a trip she was
+taking anyway has near-zero friction and barely any flake risk; a date that
+requires a special journey has plenty of both.
+
+**Don't travel to her first.** Going up before she's come down once is
+spending ninety minutes on someone he knows nothing about — and it sets the
+precedent that he's the one who moves. If she comes down once and it goes
+well, going up is a good second date, and the beach towns (Terrigal, Avoca,
+Ettalong) are genuinely worth it then.
+
+**Halfway rarely works here.** Hornsby is the geometric midpoint and is a
+transport interchange, not a date. The Hawkesbury River at Brooklyn is the one
+real exception — scenic, on the same line, oysters and boats — but it's a
+destination, so save it for when she's earned that much planning.
+
+**Distance stacks with her other signals.** Slow replies plus a long trip is
+two low-investment signals at once. That's not a dead thread, but it's not one
+to run a campaign on: one clean ask, and let her answer decide how much more
+attention it gets.
+
+---
+
 ## Tiers
 
 ### T1 — SCREEN (default; FAST track)
