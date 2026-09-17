@@ -188,6 +188,21 @@ Evasive kills it, and so does overclaiming. Honest and unhurried beats both.
 > her: `you're probably a serial dater`
 > him: `terrible one though, im here on a wednesday talking to you`
 
+**Something he knows from her profile, not from her** — distance, her job,
+her suburb. Knowing it isn't the problem; it's on the app and she knows he
+read it. The problem is *what he uses it for*. A profile fact is fine as tease
+material and bad as a logistics complaint, because leading with an obstacle
+makes the obstacle the topic before there's a reason to overcome it — and it
+hands her the easy out ("yeah it is pretty far…"). Ask the question without
+explaining why he's asking:
+
+> `when are you next in the city`
+
+No justification, no reference to anything she didn't say. If she volunteers
+the fact herself, it becomes hers and he can plan around it openly. Better
+still, build the question off something she actually wrote — answering her own
+words is always cleaner than answering her profile.
+
 **She sends a photo** — react to something other than how she looks.
 The content, the place, the dog, the terrible lighting. Everyone else in her
 inbox went for the obvious one.
