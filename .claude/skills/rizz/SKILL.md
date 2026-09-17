@@ -34,7 +34,12 @@ Run these five steps in order, every time.
 Extract from the screenshot or text, and state it back in one compact block:
 
 - **Platform + stage** (see stage model below)
-- **Who sent last**, and how long ago
+- **Who sent last**, and how long ago — **do the timestamp arithmetic
+  properly.** Screenshots show a date header once and then relative labels
+  ("Saturday", "Yesterday"), so the real gap between two messages is easy to
+  read as hours when it was days. Work out the actual elapsed time between
+  *her* message and *his*, and between her last one and now. Latency is one
+  of the strongest signals available and it is the one most often misread.
 - **Her last 3 messages verbatim** — length, questions asked, energy
 - **His last 3 messages verbatim** — same
 - **Live threads**: anything unresolved you can grab (a plan floated, a
@@ -196,32 +201,37 @@ maybe forever — PARK her and stop spending attention.
 ## Worked example
 
 Input: she matched, he sent *"What's my wife doing on here"* (after liking her
-photo). Nineteen hours later she replied: *"waiting for you boss"*.
+photo) on a Saturday night. Four days later she replied: *"waiting for you
+boss"*. He has now left it twelve hours.
 
-- **Read:** S1→S2. She initiated the reply after a gap, played along with his
-  frame, and escalated it with her own ("boss"). One short message, no
-  question back.
-- **Score:** Her 3 (plays the frame, volunteers the bit, calls back his
-  premise) / His 2. **She's ahead.**
-- **Track:** FAST. She's matching register, not depth — light, playful,
-  logistics will be easy.
-- **Call:** Ask. Now. Another round of banter here is pure downside — the bit
-  has peaked and it doesn't get funnier on a second pass.
+- **Read:** S1→S2. She played along with his frame and escalated it herself
+  ("boss") — good reply quality. But: four-day latency, five words, no
+  question back, nothing initiated. Warm, not eager.
+- **Score:** Her 2 (+plays the frame, +escalates it; −four-day latency, −no
+  question back) / His 2. **Even — and even is a problem this late.**
+- **Track:** FAST — forced by her latency, not her warmth. A girl on a
+  four-day clock never survives a banter phase; eight more messages at her
+  pace is a month.
+- **Call:** Ask. Now. Convert or park. The bit has peaked and doesn't get
+  funnier on a second pass. Propose the weekend, not tonight.
 
 ```
 A) SAFE — takes the frame, adds the day
-"typical wife behaviour. what are you doing thursday"
+"typical wife behaviour. what are you doing saturday"
 
 B) LEAN — accepts her escalation, closes in the same breath
-"good. keep it that way. drinks thursday, surry hills"
+"good. keep it that way. drinks saturday, surry hills"
 
-C) SEND-IT — plays it all the way out, stays a statement
-"took you long enough. thursday, im picking the bar"
+C) SEND-IT — calls the four-day gap without complaining about it
+"took you long enough. saturday, im picking the bar"
 ```
 
-**Next:** she names Thursday or counters with a day → send venue + time the
-same message, don't wait. She goes vague → "thursday or saturday" and nothing
-else.
+**Next:** she names Saturday or counters with a day → send venue + time in the
+same message, don't wait. She goes vague → "saturday or sunday" and nothing
+else. Another 3+ day gap → she's a maybe forever. PARK.
+
+Note what option C is doing: her latency is the material. A delay is only an
+insult if you treat it as one — named flatly, it becomes the joke.
 
 ## References
 

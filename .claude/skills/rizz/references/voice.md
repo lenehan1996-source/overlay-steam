@@ -10,8 +10,9 @@ reverse-engineered from it. After liking a girl's photo, unprompted:
 
 > **What's my wife doing on here**
 
-Her reply, nineteen hours later: *"waiting for you boss"* — which tells you
-the line worked, and how.
+Her reply, four days later: *"waiting for you boss"* — which tells you the line
+worked, and how. (Four days is its own signal; the reply quality was good, her
+urgency was not.)
 
 ## What that line is actually doing
 
@@ -120,7 +121,7 @@ one. Format: what the situation was, then verbatim what he sent.
 
 | # | Situation | Message | Result |
 |---|---|---|---|
-| 1 | Opener after liking her photo, Hinge-style | `What's my wife doing on here` | Reply 19h later: "waiting for you boss" |
+| 1 | Opener after liking her photo, Hinge-style | `What's my wife doing on here` | Reply 4 days later: "waiting for you boss" — played the frame back |
 | 2 | | | |
 | 3 | | | |
 

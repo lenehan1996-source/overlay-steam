@@ -282,20 +282,21 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-si
   ].join("\n");
 
   var EXAMPLE = {
-    stage:"S2", stage_note:"banter, one exchange deep", who_last:"her", gap:"~13 hours",
+    stage:"S2", stage_note:"banter, one exchange deep", who_last:"her",
+    gap:"she took 4 days · you're 12h in",
     threads:"the wife bit — she escalated it herself with \"boss\"",
     logistics:"nothing named yet",
-    her_score:3, him_score:2,
-    verdict:"She's ahead — she picked the frame up and ran with it.",
-    track:"FAST", track_reason:"matching register, not depth",
-    call:"Ask her out now. The bit has peaked and it doesn't get funnier on a second pass — another round of banter here is pure downside.",
+    her_score:2, him_score:2,
+    verdict:"Even — good reply, slow hands. Warm, not eager.",
+    track:"FAST", track_reason:"four-day reply latency forces it",
+    call:"Ask her out now. Convert or park — a girl on a four-day clock never survives a banter phase, and the bit has peaked. Propose the weekend, not tonight.",
     options:[
-      {label:"SAFE",does:"takes the frame, adds a day",message:"typical wife behaviour. what are you doing thursday",risk:"none really — worst case she names a different day"},
-      {label:"LEAN",does:"accepts her escalation, closes in the same breath",message:"good. keep it that way. drinks thursday, surry hills",risk:"slightly fast if she's a slow burn"},
-      {label:"SEND IT",does:"plays it all the way out, stays a statement",message:"took you long enough. thursday, im picking the bar",risk:"reads cocky if her humour is drier than it looks"}
+      {label:"SAFE",does:"takes the frame, adds a day",message:"typical wife behaviour. what are you doing saturday",risk:"none really — worst case she names a different day"},
+      {label:"LEAN",does:"accepts her escalation, closes in the same breath",message:"good. keep it that way. drinks saturday, surry hills",risk:"slightly fast if she's a slow burn"},
+      {label:"SEND IT",does:"calls the four-day gap without complaining",message:"took you long enough. saturday, im picking the bar",risk:"reads cocky if her humour is drier than it looks"}
     ],
-    next:"She names Thursday or counters → send venue and time in the same message, don't wait. She goes vague → \"thursday or saturday\" and nothing else.",
-    venue:"Love Tilly Devine, Darlinghurst — Thursday 7pm. Crown St is fifty metres away if it's going well."
+    next:"She names Saturday or counters → send venue and time in the same message, don't wait. She goes vague → \"saturday or sunday\" and nothing else. Another 3+ day gap → PARK her.",
+    venue:"Love Tilly Devine, Darlinghurst — Saturday 7pm. Crown St is fifty metres away if it's going well."
   };
 
   var $ = function(id){ return document.getElementById(id); };
@@ -459,7 +460,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-si
 
   /* ---------- boot ---------- */
   render(EXAMPLE, true);
-  $("txt").value = "Me: What's my wife doing on here\nHer (next day): waiting for you boss";
+  $("txt").value = "Me (Sat 9:48pm): What's my wife doing on here\nHer (Wed 8:35pm): waiting for you boss";
 
   (async function(){
     var s = null;
