@@ -162,6 +162,9 @@ These are enforced on output. Check each message against them before sending.
 - **Never match low energy with high energy.** If she gives four words, give
   four words. Mirroring down is the single most useful move he has.
 - **Never apologise for a slow reply.** Just reply.
+- **Australian English, always.** He's in Sydney. Realise, behaviour,
+  apologise, towards. The city or the CBD, never "downtown". Day-first dates,
+  `7pm` not "7:00 PM". An American spelling in a draft breaks the voice.
 - **No punctuation at the end of a message.** Terminal full stops read stiff
   in his register. See `references/voice.md`.
 

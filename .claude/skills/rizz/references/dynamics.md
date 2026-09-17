@@ -23,7 +23,7 @@ What came out:
 
 **What this means for him:** a non-reply is the base rate, not a verdict. The
 median outcome of any given message is silence, and that's true for everyone
-on the app including the people he's reaching toward. The only rational
+on the app including the people he's reaching towards. The only rational
 responses are volume and detachment — and the reason the playbook says "one
 revive, then park" is this: attention spent on a dead thread is attention not
 spent on a live one.

@@ -22,7 +22,7 @@ actually his fault.
 3. **Never a movie.** Two hours of not talking.
 4. **6:30 or 7pm on a weeknight.** Built-in exit, built-in reason it's casual,
    and a Tuesday-to-Thursday date signals she's a normal part of his week
-   rather than an event he's been building toward.
+   rather than an event he's been building towards.
 5. **Small bars over big pubs.** You need to hear each other. Sydney's small
    bar licensing gave the city dozens of low-lit rooms built exactly for this.
 6. **Have a second venue in your pocket, fifty metres away.** If it's going
